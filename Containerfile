@@ -31,6 +31,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     # 9. Install LazyVim
     git clone https://github.com/LazyVim/starter ~/.config/nvim && \
-    rm -rf ~/.config/nvim/.git
+    rm -rf ~/.config/nvim/.git && \
+    # 10. Insall starship shell 
+    apt-get install -y --no-install-recommends  bash-completion && \
+    curl -sS https://starship.rs/install.sh | sh -s -- -y
 
+ENV TERM=xterm-256color
+ENV COLORTERM=truecolor
+RUN echo 'eval "$(starship init bash)"' >> /etc/bash.bashrc
 CMD ["/bin/bash"]
